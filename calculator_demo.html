@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator</title>
+    <style>
+        body{
+            text-align: center;
+            font-family: cursive;
+        }
+        h1{
+            color: darkcyan;
+        }
+        .content{
+            max-width: 300px;
+            border: none;
+            margin: 0 auto;
+            padding: 25px;
+            background: darkslategray;
+            border-radius: 5px;
+        }
+        .btn{
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            height: 50px;
+            width: 50px;
+            text-align: center;
+            font-size: 15px;
+            margin-bottom: 10px;
+            margin-right: 5px;
+            background: whitesmoke;
+        }
+        .btn:hover{
+            background: gray;
+            color: black;
+
+        }
+        .content input[type="text"]{
+            height: 50px;
+            width: 100%;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-size: 30px;
+            text-align: right;
+
+        }
+        #clear{
+            /* background-color: #3498db; */
+            background-color: #FFFF00;
+        }
+        #delete{
+            /* background-color: seagreen; */
+            background-color: lightgoldenrodyellow;
+        }
+        #equal{
+            background-color: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <h1>Functional Web-based Calculator</h1>
+    <div class="content">
+        <input type="text" id="display" readonly> <br><br>
+        <button class="btn" onclick="appendToDisplay('7')">7</button>
+        <button class="btn" onclick="appendToDisplay('8')">8</button>
+        <button class="btn" onclick="appendToDisplay('9')">9</button>
+        <button class="btn" id="delete" onclick="deleteLastDigit()">DEL</button>
+        <button class="btn" id="clear" onclick="clearDisplay()">AC</button><br><br>
+        <button class="btn" onclick="appendToDisplay('4')">4</button>
+        <button class="btn" onclick="appendToDisplay('5')">5</button>
+        <button class="btn" onclick="appendToDisplay('6')">6</button>
+        <button class="btn" onclick="appendToDisplay('*')">*</button>
+        <button class="btn" onclick="appendToDisplay('/')">/</button><br><br>
+        <button class="btn" onclick="appendToDisplay('1')">1</button>
+        <button class="btn" onclick="appendToDisplay('2')">2</button>
+        <button class="btn" onclick="appendToDisplay('3')">3</button>
+        <button class="btn" onclick="appendToDisplay('+')">+</button>
+        <button class="btn" onclick="appendToDisplay('-')">-</button><br><br>
+        <button class="btn" onclick="appendToDisplay('0')">0</button>
+        <button class="btn" onclick="appendToDisplay('.')">.</button>
+        <button class="btn" id="equal" onclick="calculateResult()">=</button>
+    </div>
+    <script>
+
+        let isNewOperation = true;
+
+        function appendToDisplay(value) {
+            if (isNewOperation) {
+                clearDisplay();
+                isNewOperation = false;
+            }
+            document.getElementById('display').value += value;
+        }
+
+        function clearDisplay() {
+            document.getElementById('display').value = '';
+        }
+
+        function deleteLastDigit() {
+            const display = document.getElementById('display');
+            const currentValue = display.value;
+
+            if (currentValue.length > 0) {
+                const newValue = currentValue.slice(0, -1);
+                display.value = newValue;
+            }
+        }
+
+        function calculateResult() {
+            try {
+                const result = eval(document.getElementById('display').value);
+                document.getElementById('display').value = '=' + result;
+                isNewOperation = true;
+            } catch (error) {
+                document.getElementById('display').value = 'Error';
+            }
+        }
+
+    </script>
+</body>
+</html>
